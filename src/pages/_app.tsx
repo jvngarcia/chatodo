@@ -17,7 +17,7 @@ interface LoaderContextInterface {
 
 export const LoadingContext = createContext<LoaderContextInterface>({
   loading: false,
-  setLoading: () => {}
+  setLoading: () => undefined
 });
 
 
