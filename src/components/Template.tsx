@@ -4,6 +4,7 @@ import { type NextPage } from "next";
 import Head from "next/head";
 import MainMenu from "~/components/MainMenu";
 import { TemplateProps } from "~/interfaces/templateProps";
+import Loader from "./Loader";
 
 const Template: NextPage<TemplateProps> = ({ titleHead, children }) => {
 
@@ -15,6 +16,7 @@ const Template: NextPage<TemplateProps> = ({ titleHead, children }) => {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <main>
+                <Loader />
                 <div className="flex h-screen overflow-hidden bg-white">
                     <MainMenu />
                     <div className="flex flex-col flex-1 w-0 overflow-hidden">
