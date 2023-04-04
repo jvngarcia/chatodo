@@ -34,7 +34,7 @@ export default function SignIn({ providers }: InferGetServerSidePropsType<typeof
 
                     <div key={provider.name} className="col-span-full">
                       {
-                        <button onClick={() => signIn(provider.id)} type="button" className="inline-flex items-center justify-center w-full px-6 py-3 text-center text-black duration-200 bg-white border-2 border-black hover:bg-transparent hover:border-black rounded-xl hover:text-black focus:outline-none focus-visible:outline-black focus-visible:ring-black">
+                        <button onClick={ () => void signIn(provider.id)} type="button" className="inline-flex items-center justify-center w-full px-6 py-3 text-center text-black duration-200 bg-white border-2 border-black hover:bg-transparent hover:border-black rounded-xl hover:text-black focus:outline-none focus-visible:outline-black focus-visible:ring-black">
                           <LoginIcon icon={provider.name} />
                           With {provider.name}
                         </button>
