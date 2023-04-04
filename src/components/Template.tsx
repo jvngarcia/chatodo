@@ -3,7 +3,7 @@
 import { type NextPage } from "next";
 import Head from "next/head";
 import MainMenu from "~/components/MainMenu";
-import { TemplateProps } from "~/interfaces/templateProps";
+import { type TemplateProps } from "~/interfaces/templateProps";
 import Loader from "./Loader";
 
 const Template: NextPage<TemplateProps> = ({ titleHead, children }) => {

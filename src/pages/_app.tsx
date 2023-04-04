@@ -5,7 +5,7 @@ import { SessionProvider } from "next-auth/react";
 import { api } from "~/utils/api";
 
 import "~/styles/globals.css";
-import { createContext, useState, Dispatch, SetStateAction } from "react";
+import { createContext, useState, type Dispatch, type SetStateAction } from "react";
 
 
 

@@ -1,4 +1,4 @@
-import { ReactNode, Dispatch, SetStateAction } from "react"
+import { ReactNode } from "react"
 
 
 export type TemplateProps = {

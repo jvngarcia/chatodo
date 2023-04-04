@@ -1,4 +1,4 @@
-import { Icon } from "~/interfaces/templateProps";
+import { type Icon } from "~/interfaces/templateProps";
 
 
 

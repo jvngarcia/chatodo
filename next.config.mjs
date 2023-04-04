@@ -7,6 +7,10 @@
 /** @type {import("next").NextConfig} */
 const config = {
   reactStrictMode: true,
+  images: {
+    domains: ['jvngarcia.com', 'avatars.githubusercontent.com', 'cdn.discordapp.com']
+  },
+
 
   /**
    * If you have the "experimental: { appDir: true }" setting enabled, then you

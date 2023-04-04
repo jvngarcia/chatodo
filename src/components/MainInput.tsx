@@ -1,4 +1,4 @@
-import { Input } from "~/interfaces/templateProps"
+import { type Input } from "~/interfaces/templateProps"
 
 
 

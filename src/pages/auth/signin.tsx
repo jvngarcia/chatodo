@@ -1,13 +1,8 @@
 import type { GetServerSidePropsContext, InferGetServerSidePropsType } from "next"
-import { getProviders, signIn, useSession } from "next-auth/react"
+import { getProviders, signIn } from "next-auth/react"
 import { getServerSession } from "next-auth";
 import { authOptions } from "~/server/auth";
-import MainInput from "~/components/MainInput";
 import LoginIcon from "~/components/LoginIcons";
-import { useRouter } from "next/router";
-import Swal from "sweetalert2";
-import { useContext } from "react";
-import { LoadingContext } from "../_app";
 import Loader from "~/components/Loader";
 
 
