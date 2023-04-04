@@ -10,11 +10,10 @@ import { authOptions } from "~/server/auth";
 export default function SignIn({ providers }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   return (
     <>
-      {providers &&
-        Object.values(providers).map((provider) => (
+      {Object.values(providers).map((provider) => (
           <div key={provider.name}>
             <button onClick={() => signIn(provider.id)}>
-              asdasd {provider.name}
+              Ingresa con: {provider.name}
             </button>
           </div>
         ))
