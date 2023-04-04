@@ -1,28 +1,33 @@
-# Create T3 App
+PostcatAF
+============
+[![GitHub Stars](https://img.shields.io/github/stars/jvngarcia/chatodo.svg)](https://github.com/jvngarcia/chatodo/stargazers) [![GitHub Issues](https://img.shields.io/github/issues/jvngarcia/chatodo.svg)](https://github.com/jvngarcia/chatodo/issues) [![Current Version](https://img.shields.io/badge/version-0.1-green.svg)](https://github.com/jvngarcia/chatodo) [![Live Demo](https://img.shields.io/badge/demo-online-green.svg)](#)
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+This is a Chat that allows you to manage teams and tasks, to keep track and a stable process of them.
 
-## What's next? How do I make an app with this?
+![Chat Preview](https://imgur.com/rANZPrO.jpg)
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+<!-- ---
+## Buy me a coffee
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+Whether you use this project, have learned something from it, or just like it, please consider supporting it by buying me a coffee, so I can dedicate more time on open-source projects like this :)
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
+<a href="https://www.buymeacoffee.com/" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: auto !important;width: auto !important;" ></a> -->
 
-## Learn More
+---
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+## Features (Developing)
+- One-On-One chat
+- Group chat 
+- Task list in groups
+- Task list in One-On-One chat
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
 
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
+<!-- #### There are 3 rols:
+- **Product Owner**
+- **Scrum Master**
+- **Team** -->
 
-## How do I deploy this?
+## License
+>You can check out the full license [here](https://github.com/jvngarcia/chatodo/blob/master/LICENSE)
 
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+This project is licensed under the terms of the **MIT** license.
