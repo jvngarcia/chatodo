@@ -28,8 +28,6 @@ const MainMenu: React.FC = () => {
 
     const { data: contacts } = api.contacts.getContacts.useQuery({ email: sessionData?.user.email ?? "" });
 
-    console.log(contacts)
-
     return (
         <div className="hidden md:flex md:flex-shrink-0">
             <div className="flex flex-col w-64">
@@ -62,14 +60,13 @@ const MainMenu: React.FC = () => {
 
 
                                 {contacts && Object.values(contacts).map((contact) => {
-                                    console.log(contact)
                                     const isReceiver = contact.receiver.email === sessionData?.user.email
                                     const imgContact = isReceiver ? contact.sender.image : contact.receiver.image
                                     const nameContact = isReceiver ? contact.sender.name : contact.receiver.name
 
                                     return (
                                         <li key={contact.id}>
-                                            <Link className="inline-flex items-center w-full px-4 py-2 mt-1 text-sm text-gray-500 transition duration-200 ease-in-out transform rounded-lg focus:shadow-outline hover:bg-gray-100 hover:scale-95 hover:text-blue-500" href="#">
+                                            <Link className="inline-flex items-center w-full px-4 py-2 mt-1 text-sm text-gray-500 transition duration-200 ease-in-out transform rounded-lg focus:shadow-outline hover:bg-gray-100 hover:scale-95 hover:text-blue-500" href="/dashboard">
                                                 <Image width={20} height={20} className='h-5 w-5 rounded-full' src={imgContact ?? 'https://jvngarcia.com/wp-content/uploads/2021/01/community-group.png'} alt="" />
                                                 <span className="ml-4">
                                                     {nameContact}
@@ -80,7 +77,7 @@ const MainMenu: React.FC = () => {
                                 })}
 
                                 <li>
-                                    <Link className="inline-flex items-center w-full px-4 py-2 mt-1 text-sm text-gray-500 transition duration-200 ease-in-out transform rounded-lg focus:shadow-outline hover:bg-gray-100 hover:scale-95 hover:text-blue-500" href="#">
+                                    <Link className="inline-flex items-center w-full px-4 py-2 mt-1 text-sm text-gray-500 transition duration-200 ease-in-out transform rounded-lg focus:shadow-outline hover:bg-gray-100 hover:scale-95 hover:text-blue-500" href="/dashboard">
                                         <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-plus" width="20" height="20" viewBox="0 0 24 24" strokeWidth="1" stroke="#000000" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                             <line x1="12" y1="5" x2="12" y2="19" />
@@ -98,7 +95,7 @@ const MainMenu: React.FC = () => {
                             </p>
                             <ul>
                                 <li>
-                                    <Link className="inline-flex items-center w-full px-4 py-2 mt-1 text-sm text-gray-500 transition duration-200 ease-in-out transform rounded-lg focus:shadow-outline hover:bg-gray-100 hover:scale-95 hover:text-blue-500" href="#">
+                                    <Link className="inline-flex items-center w-full px-4 py-2 mt-1 text-sm text-gray-500 transition duration-200 ease-in-out transform rounded-lg focus:shadow-outline hover:bg-gray-100 hover:scale-95 hover:text-blue-500" href="/dashboard">
                                         <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-archive" width="20" height="20" viewBox="0 0 24 24" strokeWidth="0.5" stroke="#000000" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                             <rect x="3" y="4" width="18" height="4" rx="2" />
@@ -114,7 +111,7 @@ const MainMenu: React.FC = () => {
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link className="inline-flex items-center w-full px-4 py-2 mt-1 text-sm text-gray-500 transition duration-200 ease-in-out transform rounded-lg focus:shadow-outline hover:bg-gray-100 hover:scale-95 hover:text-blue-500" href="#">
+                                    <Link className="inline-flex items-center w-full px-4 py-2 mt-1 text-sm text-gray-500 transition duration-200 ease-in-out transform rounded-lg focus:shadow-outline hover:bg-gray-100 hover:scale-95 hover:text-blue-500" href="/dashboard">
                                         <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-archive" width="20" height="20" viewBox="0 0 24 24" strokeWidth="0.5" stroke="#000000" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                             <rect x="3" y="4" width="18" height="4" rx="2" />
@@ -160,7 +157,7 @@ const MainMenu: React.FC = () => {
                                 <div className="px-2 py-2 bg-white rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
                                     <ul>
                                         <li>
-                                            <Link className="inline-flex items-center w-full px-4 py-2 mt-1 text-sm text-gray-500 transition duration-200 ease-in-out transform rounded-lg focus:shadow-outline hover:bg-gray-100 hover:scale-95 hover:text-blue-500" href="#">
+                                            <Link className="inline-flex items-center w-full px-4 py-2 mt-1 text-sm text-gray-500 transition duration-200 ease-in-out transform rounded-lg focus:shadow-outline hover:bg-gray-100 hover:scale-95 hover:text-blue-500" href="/dashboard">
                                                 <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-user" width="20" height="20" viewBox="0 0 24 24" strokeWidth="0.5" stroke="#000000" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                                     <circle cx="12" cy="7" r="4" />
@@ -172,7 +169,7 @@ const MainMenu: React.FC = () => {
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link className="inline-flex items-center w-full px-4 py-2 mt-1 text-sm text-gray-500 transition duration-200 ease-in-out transform rounded-lg focus:shadow-outline hover:bg-gray-100 hover:scale-95 hover:text-blue-500" href="#">
+                                            <Link className="inline-flex items-center w-full px-4 py-2 mt-1 text-sm text-gray-500 transition duration-200 ease-in-out transform rounded-lg focus:shadow-outline hover:bg-gray-100 hover:scale-95 hover:text-blue-500" href="/dashboard">
                                                 <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-user-circle" width="20" height="20" viewBox="0 0 24 24" strokeWidth="0.5" stroke="#000000" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                                     <circle cx="12" cy="12" r="9" />
