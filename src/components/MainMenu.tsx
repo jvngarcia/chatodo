@@ -2,7 +2,9 @@ import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { api } from "~/utils/api";
+import MenuSkeleton from "./MenuSkeleton";
 
 
 const MainMenu: React.FC = () => {
@@ -16,6 +18,13 @@ const MainMenu: React.FC = () => {
     });
 
     const [viewProfile, setViewProfile] = useState(false)
+    const [skeleton, setSkeleton] = useState(true)
+    // const [ contacts, setContacts ] = useState({})
+
+
+    const { data: contacts } = api.contacts.getContacts.useQuery({ email: sessionData?.user.email ?? "" });
+
+    console.log(contacts)
 
     return (
         <div className="hidden md:flex md:flex-shrink-0">
@@ -27,9 +36,9 @@ const MainMenu: React.FC = () => {
                                 <svg className="w-5 h-5 mx-auto" viewBox="0 0 232 232" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M166.524 51.4683L116.367 101.625L65.5235 51.4683L116.367 0.62434L166.524 51.4683ZM231.11 116.054L180.953 166.898L130.796 116.054L180.953 65.8969L231.11 116.054ZM101.939 116.054L51.0948 166.898L0.250934 116.054L51.0948 65.8969L101.939 116.054ZM166.524 181.326L116.367 231.483L65.5235 181.326L116.367 130.482L166.524 181.326Z" fill="#0c0c0c"></path>
                                 </svg>
-
                                 ChaTodo
-                            </span>          </Link>
+                            </span>          
+                        </Link>
                         <button className="hidden rounded-lg focus:outline-none focus:shadow-outline">
                             <svg fill="currentColor" viewBox="0 0 20 20" className="w-6 h-6">
                                 <path fillRule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM9 15a1 1 0 011-1h6a1 1 0 110 2h-6a1 1 0 01-1-1z" clipRule="evenodd"></path>
@@ -40,87 +49,31 @@ const MainMenu: React.FC = () => {
                     <div className="flex flex-col flex-grow px-4 mt-5">
                         <nav className="flex-1 space-y-1 bg-white">
                             <p className="px-4 pt-4 text-xs font-semibold text-gray-400 uppercase">
-                                Groups
-                            </p>
-                            <ul>
-                                <li>
-                                    <Link className="inline-flex items-center w-full px-4 py-2 mt-1 text-sm text-gray-500 transition duration-200 ease-in-out transform rounded-lg focus:shadow-outline hover:bg-gray-100 hover:scale-95 hover:text-blue-500" href="#">
-                                        <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-dashboard" width="20" height="20" viewBox="0 0 24 24" strokeWidth="0.5" stroke="#000000" fill="none" strokeLinecap="round" strokeLinejoin="round">
-                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                            <circle cx="12" cy="13" r="2" />
-                                            <line x1="13.45" y1="11.55" x2="15.5" y2="9.5" />
-                                            <path d="M6.4 20a9 9 0 1 1 11.2 0z" />
-                                        </svg>
-                                        <span className="ml-4">
-                                            Group 1
-                                        </span>
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link className="inline-flex items-center w-full px-4 py-2 mt-1 text-sm text-gray-500 transition duration-200 ease-in-out transform rounded-lg focus:shadow-outline hover:bg-gray-100 hover:scale-95 hover:text-blue-500" href="#">
-                                        <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-chart-line" width="20" height="20" viewBox="0 0 24 24" strokeWidth="0.5" stroke="#000000" fill="none" strokeLinecap="round" strokeLinejoin="round">
-                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                            <line x1="4" y1="19" x2="20" y2="19" />
-                                            <polyline points="4 15 8 9 12 11 16 6 20 10" />
-                                        </svg>
-                                        <span className="ml-4">
-                                            Group 2
-                                        </span>
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link className="inline-flex items-center w-full px-4 py-2 mt-1 text-sm text-gray-500 transition duration-200 ease-in-out transform rounded-lg focus:shadow-outline hover:bg-gray-100 hover:scale-95 hover:text-blue-500" href="#">
-                                        <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-chart-line" width="20" height="20" viewBox="0 0 24 24" strokeWidth="0.5" stroke="#000000" fill="none" strokeLinecap="round" strokeLinejoin="round">
-                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                            <line x1="4" y1="19" x2="20" y2="19" />
-                                            <polyline points="4 15 8 9 12 11 16 6 20 10" />
-                                        </svg>
-                                        <span className="ml-4">
-                                            Group 3
-                                        </span>
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link className="inline-flex items-center w-full px-4 py-2 mt-1 text-sm text-gray-500 transition duration-200 ease-in-out transform rounded-lg focus:shadow-outline hover:bg-gray-100 hover:scale-95 hover:text-blue-500" href="#">
-                                        <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-plus" width="20" height="20" viewBox="0 0 24 24" strokeWidth="1" stroke="#000000" fill="none" strokeLinecap="round" strokeLinejoin="round">
-                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                                            <line x1="12" y1="5" x2="12" y2="19" />
-                                            <line x1="5" y1="12" x2="19" y2="12" />
-                                        </svg>
-                                        <span className="ml-4">
-                                            Add new group
-                                        </span>
-                                    </Link>
-                                </li>
-                            </ul>
-                            <p className="px-4 pt-4 text-xs font-semibold text-gray-400 uppercase">
                                 Direct messages
                             </p>
                             <ul>
-                                <li>
-                                    <Link className="inline-flex items-center w-full px-4 py-2 mt-1 text-sm text-gray-500 transition duration-200 ease-in-out transform rounded-lg focus:shadow-outline hover:bg-gray-100 hover:scale-95 hover:text-blue-500" href="#">
-                                        <Image width={20} height={20} className='h-5 w-5 rounded-full' src="https://jvngarcia.com/wp-content/uploads/2021/01/community-group.png" alt="" />
-                                        <span className="ml-4">
-                                            Ángel García
-                                        </span>
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link className="inline-flex items-center w-full px-4 py-2 mt-1 text-sm text-gray-500 transition duration-200 ease-in-out transform rounded-lg focus:shadow-outline hover:bg-gray-100 hover:scale-95 hover:text-blue-500" href="#">
-                                        <Image width={20} height={20} className='h-5 w-5 rounded-full' src="https://jvngarcia.com/wp-content/uploads/2021/01/community-group.png" alt="" />
-                                        <span className="ml-4">
-                                            Maria Quevedo
-                                        </span>
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link className="inline-flex items-center w-full px-4 py-2 mt-1 text-sm text-gray-500 transition duration-200 ease-in-out transform rounded-lg focus:shadow-outline hover:bg-gray-100 hover:scale-95 hover:text-blue-500" href="#">
-                                        <Image width={20} height={20} className='h-5 w-5 rounded-full' src="https://jvngarcia.com/wp-content/uploads/2021/01/community-group.png" alt="" />
-                                        <span className="ml-4">
-                                            Zuleidy Castillo
-                                        </span>
-                                    </Link>
-                                </li>
+                                {
+                                    !contacts && <MenuSkeleton quantity={ 3 } />
+                                }
+
+
+                                {contacts && Object.values(contacts).map((contact) => {
+                                    console.log(contact)
+                                    const isReceiver = contact.receiver.email === sessionData?.user.email
+                                    const imgContact = isReceiver ? contact.sender.image : contact.receiver.image
+                                    const nameContact = isReceiver ? contact.sender.name : contact.receiver.name
+
+                                    return (
+                                        <li key={contact.id}>
+                                            <Link className="inline-flex items-center w-full px-4 py-2 mt-1 text-sm text-gray-500 transition duration-200 ease-in-out transform rounded-lg focus:shadow-outline hover:bg-gray-100 hover:scale-95 hover:text-blue-500" href="#">
+                                                <Image width={20} height={20} className='h-5 w-5 rounded-full' src={imgContact ?? 'https://jvngarcia.com/wp-content/uploads/2021/01/community-group.png'} alt="" />
+                                                <span className="ml-4">
+                                                    {nameContact}
+                                                </span>
+                                            </Link>
+                                        </li>
+                                    )
+                                })}
 
                                 <li>
                                     <Link className="inline-flex items-center w-full px-4 py-2 mt-1 text-sm text-gray-500 transition duration-200 ease-in-out transform rounded-lg focus:shadow-outline hover:bg-gray-100 hover:scale-95 hover:text-blue-500" href="#">
@@ -182,7 +135,7 @@ const MainMenu: React.FC = () => {
                                     <span className="flex-shrink-0 block group">
                                         <div className="items-center grid grid-cols-4">
                                             <div>
-                                                <Image className="inline-block object-cover rounded-full h-9 w-9" src={sessionData?.user.image ?? ''} alt={sessionData?.user.name ?? ''} width={50} height={50} />
+                                                <Image className="inline-block object-cover rounded-full h-9 w-9" src={sessionData?.user.image ?? 'https://cdn.discordapp.com/avatars/1042877329057263727/8efc65d1ebef81c2e5bacfceaeef1eb1.png'} alt={sessionData?.user.name ?? ''} width={50} height={50} />
                                             </div>
                                             <div className="ml-3 text-left col-span-3">
                                                 <p className="text-sm font-medium text-gray-500 group-hover:text-blue-500">

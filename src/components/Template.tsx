@@ -1,10 +1,12 @@
 
-
+import type { GetServerSidePropsContext, InferGetServerSidePropsType } from "next"
 import { type NextPage } from "next";
 import Head from "next/head";
 import MainMenu from "~/components/MainMenu";
 import { type TemplateProps } from "~/interfaces/templateProps";
 import Loader from "./Loader";
+import { getServerSession } from "next-auth";
+import { api } from "~/utils/api";
 
 const Template: NextPage<TemplateProps> = ({ titleHead, children }) => {
 

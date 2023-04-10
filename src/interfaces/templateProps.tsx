@@ -18,3 +18,8 @@ export type Input = {
 export type Icon = {
     icon?: string,
 }
+
+
+export type Skeleton = {
+    quantity: number
+}
