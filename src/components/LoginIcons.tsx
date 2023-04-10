@@ -2,6 +2,17 @@ import { type Icon } from "~/interfaces/templateProps";
 
 
 
+/**
+ * The function returns a React component that displays an icon based on the input icon name.
+ * @param  - The code defines a React functional component called `LoginIcon` that takes in a single
+ * prop called `icon`. The prop is of type `Icon`, which is not defined in the code snippet provided.
+ * The component checks the value of the `icon` prop and returns an SVG icon based on the value
+ * @returns A React functional component called `LoginIcon` is being returned. It takes an object
+ * `Icon` as a prop and renders an SVG icon based on the value of the `icon` property of the `Icon`
+ * object. If the `icon` property is `'Discord'`, it renders a Discord icon. If the `icon` property is
+ * `'GitHub'`, it renders a GitHub icon.
+ */
+
 const LoginIcon: React.FC<Icon> = ({ icon }) => {
     if (icon == 'Discord') {
         return (

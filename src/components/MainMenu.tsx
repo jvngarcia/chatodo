@@ -2,10 +2,17 @@ import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { api } from "~/utils/api";
 import MenuSkeleton from "./MenuSkeleton";
 
+
+/* The above code is defining a React functional component called `MainMenu`. It is rendering a sidebar
+menu with a list of direct messages and projects. It also displays the user's profile information
+and provides options to view account, profile, and sign out. The component uses `useSession` hook
+from NextAuth.js to get the user's session data and `useRouter` hook from Next.js to handle routing.
+It also uses `api.contacts.getContacts.useQuery` to fetch the user's contacts and display them in
+the direct messages list. */
 
 const MainMenu: React.FC = () => {
 
@@ -18,9 +25,6 @@ const MainMenu: React.FC = () => {
     });
 
     const [viewProfile, setViewProfile] = useState(false)
-    const [skeleton, setSkeleton] = useState(true)
-    // const [ contacts, setContacts ] = useState({})
-
 
     const { data: contacts } = api.contacts.getContacts.useQuery({ email: sessionData?.user.email ?? "" });
 

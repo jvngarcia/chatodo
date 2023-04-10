@@ -2,6 +2,13 @@ import { Skeleton } from "~/interfaces/templateProps"
 
 
 
+/* This code defines a functional component called `MenuSkeleton` that takes in a prop called
+`quantity` of type `Skeleton`. The component then creates an array of `li` elements with a nested
+structure of `div` elements that contain CSS classes and styles. The number of `li` elements created
+is determined by the `quantity` prop passed in. Finally, the component returns the array of `li`
+elements wrapped in a React fragment. The component is then exported as the default export of the
+module. */
+
 const MenuSkeleton: React.FC<Skeleton> = ({ quantity }) => {
 
     const rows = []

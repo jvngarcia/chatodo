@@ -2,6 +2,12 @@ import { type Input } from "~/interfaces/templateProps"
 
 
 
+/**
+ * This is a React functional component that renders an input field with a label, placeholder, type,
+ * and name.
+ * @param  - - `MainInput`: a functional component that renders an input field with a label
+ */
+
 const MainInput: React.FC< Input > = ({ label, placeholder, type, name }) => {
     return (
         <>
