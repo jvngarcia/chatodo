@@ -8,9 +8,6 @@ import Loader from "~/components/Loader";
 
 
 
-
-
-
 export default function SignIn({ providers }: InferGetServerSidePropsType<typeof getServerSideProps>) {
 
   return (
