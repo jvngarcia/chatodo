@@ -52,6 +52,19 @@ export const contactsRouter = createTRPCRouter({
         });
     }),
 
+    getContactByEmail: publicProcedure.input( z.object({ email: z.string() }) ).mutation(({ ctx, input }) => {
+        return ctx.prisma.user.findUnique({
+            where: {
+                email: input.email,
+            },
+            select: {
+                name: true,
+                email: true,
+                image: true,
+            }
+        });
+    }),
+
 
 
     hello: publicProcedure
