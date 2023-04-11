@@ -2,7 +2,7 @@ PostcatAF
 ============
 [![GitHub Stars](https://img.shields.io/github/stars/jvngarcia/chatodo.svg)](https://github.com/jvngarcia/chatodo/stargazers) [![GitHub Issues](https://img.shields.io/github/issues/jvngarcia/chatodo.svg)](https://github.com/jvngarcia/chatodo/issues) [![Current Version](https://img.shields.io/badge/version-0.1-green.svg)](https://github.com/jvngarcia/chatodo) [![Live Demo](https://img.shields.io/badge/demo-online-green.svg)](#)
 
-This is a Chat that allows you to manage teams and tasks, to keep track and a stable process of them.
+Chatodo is a unique application that combines real-time communication and collaboration with an intuitive task management platform, all in one easy-to-use tool. With Chatodo, you can keep your team connected and organized as you work together on important projects.
 
 ![Chat Preview](https://imgur.com/rANZPrO.jpg)
 
