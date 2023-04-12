@@ -58,6 +58,7 @@ export const contactsRouter = createTRPCRouter({
                 email: input.email,
             },
             select: {
+                id: true,
                 name: true,
                 email: true,
                 image: true,
@@ -65,21 +66,39 @@ export const contactsRouter = createTRPCRouter({
         });
     }),
 
+    getContact: publicProcedure.input(z.object({ id: z.string() })).query(({ ctx, input }) => {
+        return ctx.prisma.user.findUnique({
+            where: {
+                id: input.id,
+            },
+            select: {
+                name: true,
+                email: true,
+                image: true,
+            }
+        });
+    }),
+
+    // create contact
+    createContact: publicProcedure.input(z.object({ sender: z.string(), receiver: z.string() })).mutation(({ ctx, input }) => {
+        
+    }),
 
 
-    hello: publicProcedure
-        .input(z.object({ text: z.string() }))
-        .query(({ input }) => {
-            return {
-                greeting: `Welcome ${input.text}`,
-            };
-        }),
+
+    // hello: publicProcedure
+    //     .input(z.object({ text: z.string() }))
+    //     .query(({ input }) => {
+    //         return {
+    //             greeting: `Welcome ${input.text}`,
+    //         };
+    //     }),
 
     // getAll: publicProcedure.query(({ ctx }) => {
     //     return ctx.prisma.example.findMany();
     // }),
 
-    getSecretMessage: protectedProcedure.query(() => {
-        return "you can now see this secret message!";
-    }),
+    // getSecretMessage: protectedProcedure.query(() => {
+    //     return "you can now see this secret message!";
+    // }),
 });

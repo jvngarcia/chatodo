@@ -65,3 +65,11 @@ export type Icon = {
 export type Skeleton = {
     quantity: number
 }
+
+
+export type TextMessage = {
+    profileImg: string,
+    name: string,
+    status: string,
+    children?: ReactNode
+}

@@ -1,7 +1,7 @@
 import { type NextPage } from "next";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import MainInput from "~/components/MainInput";
 import Template from "~/components/Template";
 import { api } from "~/utils/api";
@@ -18,11 +18,6 @@ const Dashboard: NextPage = () => {
 
     const { mutate, error, data: new_contact, isLoading } = api.contacts.getContactByEmail.useMutation()
     loader.setLoading(isLoading)
-
-    useState( () => {
-        loader.setLoading(isLoading)
-
-    }, [])
 
     const handleSubmit = (event: any) => {
         event.preventDefault()
@@ -45,7 +40,7 @@ const Dashboard: NextPage = () => {
 
 
                         {
-                            new_contact && <TargetContact image={ new_contact.image ?? '' }  name={ new_contact.name ?? '' } email={ new_contact.email ?? '' }/>
+                            new_contact && <TargetContact image={new_contact.image ?? ''} name={new_contact.name ?? ''} email={new_contact.email ?? ''} id={new_contact.id ?? ''}  />
                         }
 
                         {
@@ -62,14 +57,16 @@ const Dashboard: NextPage = () => {
 
 
 type TargetContactInterface = {
+    id: string,
     image: string,
     name: string,
     email: string
 }
 
-export const TargetContact: React.FC< TargetContactInterface > = ({ image, name, email }) => {
+export const TargetContact: React.FC<TargetContactInterface> = ({ id, image, name, email }) => {
+    const router = useRouter()
     return (
-        <div className="border rounded py-4 px-5 bg-white">
+        <div className="border rounded py-4 px-5 bg-white w-full">
             <div className="grid grid-cols-4">
                 <div>
                     <Image src={image ?? 'default.png'} alt={name ?? 'default.png'} width={50} height={50} />
@@ -79,7 +76,12 @@ export const TargetContact: React.FC< TargetContactInterface > = ({ image, name,
                     <p className="text-gray-800 truncate">{email}</p>
                 </div>
             </div>
-            <button className="px-4 py-2 text-white bg-red-500 rounded-xl w-full mt-3" type="submit">Write a message</button>
+            <div className="mt-5">
+                <button onClick={() => router.push({
+                    pathname: '/chat/contact/[id]',
+                    query: { id }
+                })} className="px-4 py-2 text-white bg-red-500 rounded-xl w-full mt-3 block text-center">Write a message</button>
+            </div>
         </div>
     )
 }
