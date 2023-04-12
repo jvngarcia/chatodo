@@ -8,7 +8,7 @@ import { type Input } from "~/interfaces/templateProps"
  * @param  - - `MainInput`: a functional component that renders an input field with a label
  */
 
-const MainInput: React.FC< Input > = ({ label, placeholder, type, name }) => {
+const MainInput: React.FC< Input > = ({ label = '', placeholder, type, name }) => {
     return (
         <>
             <label className="block mb-3 text-sm font-medium text-gray-600" htmlFor={ label.trim() }>
