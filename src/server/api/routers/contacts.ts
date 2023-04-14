@@ -9,20 +9,25 @@ import {
 export const contactsRouter = createTRPCRouter({
 
     getContacts: publicProcedure.input(z.object({ email: z.string() })).query(({ ctx, input }) => {
-        return ctx.prisma.message.findMany({
+        return ctx.prisma.contact.findMany({
             where: {
-                OR: [
-                    {
-                        receiverEmail: {
-                            equals: input.email
+                AND: {
+                    OR: [
+                        {
+                            receiverEmail: {
+                                equals: input.email
+                            },
                         },
-                    },
-                    {
-                        senderEmail: {
-                            equals: input.email
+                        {
+                            senderEmail: {
+                                equals: input.email
+                            }
                         }
+                    ],
+                    status: {
+                        equals: true
                     }
-                ]
+                }
             },
             orderBy: {
                 createdAt: 'desc'
@@ -48,11 +53,11 @@ export const contactsRouter = createTRPCRouter({
                     }
                 },
             }
-            
+
         });
     }),
 
-    getContactByEmail: publicProcedure.input( z.object({ email: z.string() }) ).mutation(({ ctx, input }) => {
+    getContactByEmail: publicProcedure.input(z.object({ email: z.string() })).mutation(({ ctx, input }) => {
         return ctx.prisma.user.findUnique({
             where: {
                 email: input.email,
@@ -79,9 +84,96 @@ export const contactsRouter = createTRPCRouter({
         });
     }),
 
-    // create contact
-    createContact: publicProcedure.input(z.object({ sender: z.string(), receiver: z.string() })).mutation(({ ctx, input }) => {
-        
+
+    createContact: publicProcedure.input(z.object({ sender: z.string(), receiver: z.string() })).mutation(async ({ ctx, input }) => {
+
+        const validateContact = await ctx.prisma.contact.findFirst({
+            where: {
+                AND: [
+                    {
+                        OR:{
+                            senderEmail: {
+                                equals: input.sender
+                            },
+                            receiverEmail: {
+                                equals: input.sender
+                            }
+                        }
+                    },
+                    {
+                        OR:{
+                            senderEmail: {
+                                equals: input.receiver
+                            },
+                            receiverEmail: {
+                                equals: input.receiver
+                            }
+                        }
+                    },
+                ],
+            },
+        });
+
+        if (validateContact) {
+            if( !validateContact.status ){
+                const contact = await ctx.prisma.contact.update({
+                    where: {
+                        id: validateContact.id,
+                    },
+                    data: {
+                        status: true,
+                    }
+                });
+                if (contact) {
+                    return true;
+                }
+            }
+
+            return true;
+        }
+
+        const contact = await ctx.prisma.contact.create({
+            data: {
+                senderEmail: input.sender,
+                receiverEmail: input.receiver,
+                status: true,
+            }
+        });
+
+        if (contact) {
+            return true;
+        }
+
+        return true;
+    }),
+
+
+    deleteContact: publicProcedure.input(z.object({ id: z.string() })).mutation(async ({ ctx, input }) => {
+        const validateContact = await ctx.prisma.contact.findFirst({
+            where: {
+                id: input.id,
+            },
+        });
+    
+        if (!validateContact) {
+            return false;
+        }
+
+        const contact = await ctx.prisma.contact.update({
+            where: {
+                id: input.id,
+            },
+            data: {
+                status: false,
+            }
+        });
+
+        if (contact) {
+            return true;
+        }
+
+        return false;
+
     }),
 
 
