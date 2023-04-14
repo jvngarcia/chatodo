@@ -5,6 +5,10 @@ import { LoadingContext } from '~/pages/_app'
 
 
 
+/* This code defines a React functional component called `Loader`. It imports the `JellyTriangle`
+component from a package called `@uiball/loaders` and the `useContext` hook from React. It also
+imports a `LoadingContext` from a file called `_app` in the `pages` directory. */
+
 const Loader: React.FC = () => {
 
     const { loading } = useContext( LoadingContext )

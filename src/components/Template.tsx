@@ -1,10 +1,17 @@
-
-
 import { type NextPage } from "next";
 import Head from "next/head";
 import MainMenu from "~/components/MainMenu";
 import { type TemplateProps } from "~/interfaces/templateProps";
 import Loader from "./Loader";
+
+/**
+ * This is a TypeScript React component that renders a template with a title, meta description,
+ * favicon, loader, main menu, and children content.
+ * @param  - - `Template`: a functional component that returns a JSX element
+ * @returns The `Template` component is being returned, which is a Next.js page component that renders
+ * a layout with a header, a main content area, and a sidebar menu. The `titleHead` and `children`
+ * props are used to set the page title and render the child components within the main content area.
+ */
 
 const Template: NextPage<TemplateProps> = ({ titleHead, children }) => {
 
