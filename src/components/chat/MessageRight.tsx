@@ -1,11 +1,12 @@
+import Image from "next/image";
 import { type TextMessage } from "~/interfaces/templateProps";
 
 
-const MessageRight: React.FC<TextMessage> = ({ profileImg, name, status, children } : any) => {
+const MessageRight: React.FC<TextMessage> = ({ profileImg, name, status, children }) => {
     return (
         <div className='flex mt-8 flex-row-reverse'>
             <div className='flex-shrink-0'>
-                <img className='h-10 w-10 rounded-full' src={ profileImg } alt="" />
+                <Image className='h-10 w-10 rounded-full' src={ profileImg } alt="" width={10} height={10} />
             </div>
             <div className='mr-4'>
                 <div className='flex items-center justify-end'>

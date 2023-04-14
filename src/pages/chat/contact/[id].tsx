@@ -1,4 +1,4 @@
-import { NextPage } from "next"
+import type { NextPage } from "next"
 import { useRouter } from "next/router"
 import Template from "~/components/Template"
 import MessageLeft from "~/components/chat/MessageLeft"

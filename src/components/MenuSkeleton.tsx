@@ -1,4 +1,4 @@
-import { Skeleton } from "~/interfaces/templateProps"
+import type { Skeleton } from "~/interfaces/templateProps"
 
 
 

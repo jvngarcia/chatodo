@@ -9,10 +9,13 @@ import { LoadingContext } from "./_app";
 import Avvvatars from 'avvvatars-react'
 import { useSession } from "next-auth/react";
 import Swal from "sweetalert2";
+import { useState } from "react";
 
 
 
 const Dashboard: NextPage = () => {
+
+    const [email, setEmail] = useState('');
 
     const router = useRouter()
     const { query } = router
@@ -22,10 +25,9 @@ const Dashboard: NextPage = () => {
     const { mutate, error, data: new_contact, isLoading } = api.contacts.getContactByEmail.useMutation()
     loader.setLoading(isLoading)
 
-    const handleSubmit = (event: any) => {
+    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
-        const { email } = event.target
-        mutate({ email: email.value })
+        mutate({ email: email })
     }
 
 
@@ -36,8 +38,8 @@ const Dashboard: NextPage = () => {
                     <div className={`w-full h-full p-4 mx-auto space-y-4 bg-gray-50 rounded-xl border ${query.create == 'contact' ? 'border-blue-300 animate-pulse duration-1000' : ''}`}>
                         <h1 className="text-2xl font-bold text-gray-800">Add contact</h1>
                         <p className="text-gray-600">To add new contacts you must take into account that they must be registered on the platform.</p>
-                        <form onSubmit={(event) => handleSubmit(event)}>
-                            <MainInput label="Email" placeholder="angel@gmail.com" type="email" name="email" />
+                        <form onSubmit={(event) => void handleSubmit(event)} >
+                            <MainInput label="Email" placeholder="angel@gmail.com" type="email" name="email" onChange={ ( e ) => setEmail(e.target.value) } />
                             <button className="px-4 py-2 text-white bg-blue-500 rounded-xl w-full mt-3" type="submit">Search</button>
                         </form>
 
@@ -75,14 +77,14 @@ export const TargetContact: React.FC<TargetContactInterface> = ({ id, image, nam
     console.log( new_contact )
 
     if( new_contact ){
-        router.push({
+        void router.push({
             pathname: '/chat/contact/[id]',
             query: { id: id }
         })
     }
 
     if( error ){
-        Swal.fire({
+        void Swal.fire({
             icon: 'error',
             title: 'Oops...',
             text: error.message,
@@ -107,7 +109,7 @@ export const TargetContact: React.FC<TargetContactInterface> = ({ id, image, nam
                 </div>
             </div>
             <div className="mt-5">
-                <button onClick={() => createContact( email )} className="px-4 py-2 text-white bg-red-500 rounded-xl w-full mt-3 block text-center">Write a message</button>
+                <button onClick={() => void createContact( email )} className="px-4 py-2 text-white bg-red-500 rounded-xl w-full mt-3 block text-center">Write a message</button>
             </div>
         </div>
     )

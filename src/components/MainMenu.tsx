@@ -30,10 +30,10 @@ const MainMenu: React.FC = () => {
     const [viewProfile, setViewProfile] = useState(false)
 
     const { data: contacts } = api.contacts.getContacts.useQuery({ email: sessionData?.user.email ?? "" });
-    const { mutate, data: dataDelete } = api.contacts.deleteContact.useMutation();
+    const { mutate } = api.contacts.deleteContact.useMutation();
 
-    const deleteContact = (id: string) => {
-        Swal.fire({
+    const deleteContact = async (id: string) => {
+        await Swal.fire({
             title: 'Are you sure?',
             icon: 'warning',
             showCancelButton: true,
@@ -115,7 +115,7 @@ const MainMenu: React.FC = () => {
                                                         <p className="truncate">{nameContact}</p>
                                                     </span>
                                                 </Link>
-                                                <button onClick={() => deleteContact(contact.id)}>
+                                                <button onClick={() => void deleteContact(contact.id)}>
                                                     <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-trash" width="20" height="20" viewBox="0 0 24 24" strokeWidth="0.5" stroke="#b91c1c" fill="none" strokeLinecap="round" strokeLinejoin="round">
                                                         <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                                                         <line x1="4" y1="7" x2="20" y2="7" />
