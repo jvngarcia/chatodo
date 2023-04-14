@@ -6,6 +6,9 @@ import MainInput from "~/components/MainInput";
 import Template from "~/components/Template";
 import { api } from "~/utils/api";
 import { LoadingContext } from "./_app";
+import Avvvatars from 'avvvatars-react'
+import { useSession } from "next-auth/react";
+import Swal from "sweetalert2";
 
 
 
@@ -40,7 +43,7 @@ const Dashboard: NextPage = () => {
 
 
                         {
-                            new_contact && <TargetContact image={new_contact.image ?? ''} name={new_contact.name ?? ''} email={new_contact.email ?? ''} id={new_contact.id ?? ''}  />
+                            new_contact && <TargetContact image={new_contact.image ?? ''} name={new_contact.name ?? ''} email={new_contact.email ?? ''} id={new_contact.id ?? ''} />
                         }
 
                         {
@@ -65,11 +68,38 @@ type TargetContactInterface = {
 
 export const TargetContact: React.FC<TargetContactInterface> = ({ id, image, name, email }) => {
     const router = useRouter()
+    const { data: sessionData } = useSession();
+
+    const { mutate, error, data: new_contact } = api.contacts.createContact.useMutation()
+
+    console.log( new_contact )
+
+    if( new_contact ){
+        router.push({
+            pathname: '/chat/contact/[id]',
+            query: { id: id }
+        })
+    }
+
+    if( error ){
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: error.message,
+        })
+    }
+
+    const createContact = ( email:string ) => {
+        mutate({ sender: sessionData?.user.email ?? '' , receiver: email })
+    }
+
     return (
         <div className="border rounded py-4 px-5 bg-white w-full">
             <div className="grid grid-cols-4">
                 <div>
-                    <Image src={image ?? 'default.png'} alt={name ?? 'default.png'} width={50} height={50} />
+                    {
+                        image ? <Image src={image} alt={name} width={50} height={50} /> : <Avvvatars value={name ?? 'anonimous'} size={50} />
+                    }
                 </div>
                 <div className="col-span-3">
                     <p className="text-gray-800 font-bold truncate">{name}</p>
@@ -77,10 +107,7 @@ export const TargetContact: React.FC<TargetContactInterface> = ({ id, image, nam
                 </div>
             </div>
             <div className="mt-5">
-                <button onClick={() => router.push({
-                    pathname: '/chat/contact/[id]',
-                    query: { id }
-                })} className="px-4 py-2 text-white bg-red-500 rounded-xl w-full mt-3 block text-center">Write a message</button>
+                <button onClick={() => createContact( email )} className="px-4 py-2 text-white bg-red-500 rounded-xl w-full mt-3 block text-center">Write a message</button>
             </div>
         </div>
     )
