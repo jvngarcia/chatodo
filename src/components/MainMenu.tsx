@@ -5,6 +5,9 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { api } from "~/utils/api";
 import MenuSkeleton from "./MenuSkeleton";
+import Avvvatars from 'avvvatars-react'
+import Swal from "sweetalert2";
+
 
 
 /* The above code is defining a React functional component called `MainMenu`. It is rendering a sidebar
@@ -27,6 +30,22 @@ const MainMenu: React.FC = () => {
     const [viewProfile, setViewProfile] = useState(false)
 
     const { data: contacts } = api.contacts.getContacts.useQuery({ email: sessionData?.user.email ?? "" });
+    const { mutate, data: dataDelete } = api.contacts.deleteContact.useMutation();
+
+    const deleteContact = (id: string) => {
+        Swal.fire({
+            title: 'Are you sure?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#0ea5e9',
+            cancelButtonColor: '#dc2626',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                mutate({ id })
+            }
+        })
+    }
 
     return (
         <div className="hidden md:flex md:flex-shrink-0">
@@ -39,7 +58,7 @@ const MainMenu: React.FC = () => {
                                     <path d="M166.524 51.4683L116.367 101.625L65.5235 51.4683L116.367 0.62434L166.524 51.4683ZM231.11 116.054L180.953 166.898L130.796 116.054L180.953 65.8969L231.11 116.054ZM101.939 116.054L51.0948 166.898L0.250934 116.054L51.0948 65.8969L101.939 116.054ZM166.524 181.326L116.367 231.483L65.5235 181.326L116.367 130.482L166.524 181.326Z" fill="#0c0c0c"></path>
                                 </svg>
                                 ChaTodo
-                            </span>          
+                            </span>
                         </Link>
                         <button className="hidden rounded-lg focus:outline-none focus:shadow-outline">
                             <svg fill="currentColor" viewBox="0 0 20 20" className="w-6 h-6">
@@ -50,12 +69,28 @@ const MainMenu: React.FC = () => {
                     </div>
                     <div className="flex flex-col flex-grow px-4 mt-5">
                         <nav className="flex-1 space-y-1 bg-white">
+                            <ul>
+                                <li>
+                                    <Link className="inline-flex items-center w-full px-4 py-2 mt-1 text-sm text-gray-500 transition duration-200 ease-in-out transform rounded-lg focus:shadow-outline hover:bg-gray-100 hover:scale-95 hover:text-blue-500" href="/dashboard">
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-dashboard" width="20" height="20" viewBox="0 0 24 24" strokeWidth="0.5" stroke="#000000" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                            <circle cx="12" cy="13" r="2" />
+                                            <line x1="13.45" y1="11.55" x2="15.5" y2="9.5" />
+                                            <path d="M6.4 20a9 9 0 1 1 11.2 0z" />
+                                        </svg>
+                                        <span className="ml-4">
+                                            Dashboard
+                                        </span>
+                                    </Link>
+                                </li>
+                            </ul>
+
                             <p className="px-4 pt-4 text-xs font-semibold text-gray-400 uppercase">
                                 Direct messages
                             </p>
                             <ul>
                                 {
-                                    !contacts && <MenuSkeleton quantity={ 3 } />
+                                    !contacts && <MenuSkeleton quantity={3} />
                                 }
 
 
@@ -63,15 +98,34 @@ const MainMenu: React.FC = () => {
                                     const isReceiver = contact.receiver.email === sessionData?.user.email
                                     const imgContact = isReceiver ? contact.sender.image : contact.receiver.image
                                     const nameContact = isReceiver ? contact.sender.name : contact.receiver.name
+                                    const idContact = isReceiver ? contact.sender.id : contact.receiver.id
 
                                     return (
                                         <li key={contact.id}>
-                                            <Link className="inline-flex items-center w-full px-4 py-2 mt-1 text-sm text-gray-500 transition duration-200 ease-in-out transform rounded-lg focus:shadow-outline hover:bg-gray-100 hover:scale-95 hover:text-blue-500" href="/dashboard">
-                                                <Image width={20} height={20} className='h-5 w-5 rounded-full' src={imgContact ?? 'https://jvngarcia.com/wp-content/uploads/2021/01/community-group.png'} alt="" />
-                                                <span className="ml-4">
-                                                    {nameContact}
-                                                </span>
-                                            </Link>
+                                            <div className="inline-flex items-center w-full px-4 py-2 mt-1 text-sm text-gray-500 transition duration-200 ease-in-out transform rounded-lg focus:shadow-outline hover:bg-gray-100 hover:scale-95 hover:text-blue-500">
+                                                <Link className="w-full grid grid-cols-6 mr-2" href={`/chat/contact/${idContact}`}>
+                                                    {
+                                                        imgContact ? (
+                                                            <Image width={25} height={25} className='rounded-full' src={imgContact} alt="" />
+                                                        ) : (
+                                                            <Avvvatars value={nameContact ?? 'anonimous'} size={25} />
+                                                        )
+                                                    }
+                                                    <span className="ml-4 col-span-5 flex items-center">
+                                                        <p className="truncate">{nameContact}</p>
+                                                    </span>
+                                                </Link>
+                                                <button onClick={() => deleteContact(contact.id)}>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-trash" width="20" height="20" viewBox="0 0 24 24" strokeWidth="0.5" stroke="#b91c1c" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                        <line x1="4" y1="7" x2="20" y2="7" />
+                                                        <line x1="10" y1="11" x2="10" y2="17" />
+                                                        <line x1="14" y1="11" x2="14" y2="17" />
+                                                        <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+                                                        <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+                                                    </svg>
+                                                </button>
+                                            </div>
                                         </li>
                                     )
                                 })}
@@ -136,7 +190,13 @@ const MainMenu: React.FC = () => {
                                     <span className="flex-shrink-0 block group">
                                         <div className="items-center grid grid-cols-4">
                                             <div>
-                                                <Image className="inline-block object-cover rounded-full h-9 w-9" src={sessionData?.user.image ?? 'https://cdn.discordapp.com/avatars/1042877329057263727/8efc65d1ebef81c2e5bacfceaeef1eb1.png'} alt={sessionData?.user.name ?? ''} width={50} height={50} />
+                                                {
+                                                    sessionData?.user.image ? (
+                                                        <Image className="inline-block object-cover rounded-full h-9 w-9" src={sessionData?.user.image} alt={sessionData?.user.name ?? 'name'} width={50} height={50} />
+                                                    ) : (
+                                                        <Avvvatars value={sessionData?.user.name ?? 'anonimous'} />
+                                                    )
+                                                }
                                             </div>
                                             <div className="ml-3 text-left col-span-3">
                                                 <p className="text-sm font-medium text-gray-500 group-hover:text-blue-500">
