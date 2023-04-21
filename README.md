@@ -15,6 +15,34 @@ Whether you use this project, have learned something from it, or just like it, p
 
 ---
 
+
+## Run Locally
+
+Clone the project
+
+```bash
+  git clone https://github.com/jvngarcia/chatodo.git
+```
+
+Go to the project directory
+
+```bash
+  cd my-project
+```
+
+Install dependencies
+
+```bash
+  npm install
+```
+
+Start the server
+
+```bash
+  npm run start
+```
+
+
 ## Features (Developing)
 - One-On-One chat
 - Group chat 
